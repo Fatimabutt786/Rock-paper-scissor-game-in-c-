@@ -1,0 +1,58 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <limits> 
+
+using namespace std;
+
+// Function to generate computer's choice: 0 for Rock, 1 for Paper, 2 for Scissors
+int generateComputerChoice() {
+    return rand() % 3;
+}
+
+int main() {
+    int userChoice, computerChoice;
+    char playAgain;
+
+    // Seed the random number generator
+    srand(time(nullptr));
+
+    do {
+        cout << "\nWelcome to Rock-Paper-Scissors Game!\n";
+        cout << "Choose:\n";
+        cout << "0: Rock\n";
+        cout << "1: Paper\n";
+        cout << "2: Scissors\n";
+        cout << "Enter your choice: ";
+        cin >> userChoice;
+
+        // Validate user input
+        if (userChoice < 0 || userChoice > 2) {
+            cout << "Invalid choice! Please choose between 0, 1, or 2.\n";
+            continue;
+        }
+
+        computerChoice = generateComputerChoice();
+        cout << "Computer chose: " << computerChoice << endl;
+
+        if (userChoice == computerChoice) {
+            cout << "It's a tie!\n";
+        } else if ((userChoice == 0 && computerChoice == 2) ||
+                   (userChoice == 1 && computerChoice == 0) ||
+                   (userChoice == 2 && computerChoice == 1)) {
+            cout << "Congratulations! You win.\n";
+        } else {
+            cout << "Sorry! Computer wins.\n";
+        }
+
+        // Ask user if they want to play again
+        cout << "\nDo you want to play again? (yes/no): ";
+        cin >> playAgain;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore any remaining characters including newline
+
+    } while (playAgain == 'y' || playAgain == 'Y');
+
+    cout << "Thanks for playing! Goodbye.\n";
+
+    return 0;
+}
